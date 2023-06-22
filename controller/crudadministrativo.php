@@ -1,0 +1,87 @@
+<?php
+include_once '../config/conexion1.php';
+$objeto = new Conexion();
+$conexion = $objeto->Conectar();
+
+$opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+
+$id = (isset($_POST['id'])) ? $_POST['id'] : '';
+$idpersona = (isset($_POST['idper'])) ? $_POST['idper'] : '';
+$dni = (isset($_POST['dni'])) ? trim($_POST['dni']) : '';
+
+
+switch($opcion){
+    case 1:
+        $consulta = "INSERT into pers_adm values (null,'$idpersona')";			
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute(); 
+
+        
+        $consulta = "UPDATE usuarios SET estado='ACTIVO' where dni='$dni'";			
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute(); 
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);      
+        break;    
+    case 2:        
+        // $consulta = "UPDATE persona SET dni='$dni', ap_paterno='$appat', ap_materno='$apmat', 
+        //     nombres='$nombre', email='$email', telefono='$celular', direccion='$direccion'
+        //     WHERE idusuarios='$user_id'";		
+        // $resultado = $conexion->prepare($consulta);
+        // $resultado->execute();   
+        
+        // $consulta = "UPDATE usuarios SET nombre='$usuario', dni='$dni', contraseña='$password', 
+        //     email='$email', fechaedicion=sysdate(), estado='$celular', idroles='$rol'
+        //     WHERE idusuarios='$user_id'";		
+        // $resultado = $conexion->prepare($consulta);
+        // $resultado->execute();  
+        
+        // $consulta = "SELECT * FROM usuarios WHERE user_id='$user_id' ";       
+        // $resultado = $conexion->prepare($consulta);
+        // $resultado->execute();
+        // $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
+    case 3:
+        $consulta = "SELECT count(*) total FROM cita where idpers_adm='$id'";			
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute(); 
+        $data=$resultado->fetch(PDO::FETCH_ASSOC);
+        if ($data['total'] == 0) {
+            $consulta = "DELETE FROM pers_adm WHERE idpers_adm='$id'";		
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();  
+            
+            $consulta = "UPDATE usuarios SET estado='DESACTIVADO' where dni='$dni'";			
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute(); 
+        }else{
+            $data = 1;
+        }                                     
+        break;
+    case 4:    
+        $consulta = "select idpers_adm ID, pe.dni DNI, concat(pe.nombres,' ',pe.ap_paterno,' ',pe.ap_materno) Personal
+        from pers_adm p, persona pe
+        where p.idpersona=pe.idpersona";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();        
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
+    case 5:// Mostrar datos del adminis no registrado aun
+        $consulta = "select idusuarios ID1, idpersona ID2, p.dni dni, nombres ,ap_paterno ap, ap_materno am, telefono, direccion
+        from persona p, usuarios u
+        where p.dni=u.dni and idpersona='$idpersona'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();        
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
+    case 6: //PARA MOSTRAR DATOS DEL PERSONAL
+        $consulta = "select idpers_adm ID, p.dni dni, nombres ,ap_paterno ap, ap_materno am, telefono, direccion
+        from pers_adm e, persona p
+        where e.idpersona=p.idpersona and idpers_adm='$id'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();        
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
+}
+
+print json_encode($data, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
+$conexion=null;

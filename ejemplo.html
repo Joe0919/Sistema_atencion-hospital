@@ -1,0 +1,96 @@
+<html>
+        <head>
+            <title> Mensaje HTML </title>
+            
+            <style>
+                body{
+                    font-family: "arial";
+                }
+                h1 {
+                    font-size: 1.6rem;
+                    padding: 12px;
+                    color: white;
+                    margin: 0;
+                }
+        
+                h2 {
+                    font-size: 1.4rem;
+                    margin: 0;
+                    color: #F4FA58;
+                }
+                #titu{
+                    background-color: #096B87;
+                    text-align: center;
+                    height: 105px;
+                }
+                #table{
+                    margin: 0 auto;
+                    width: 60%;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <div id="titu">
+                <h1>HOSPITAL ANTONIO CALDAS DOMÍNGUEZ - POMABAMBA</h1>
+                <h2>SISTEMA DE ATENCIÓN DE CONSULTA EXTERNA</h2>
+            </div>
+            
+                <p>Estimado(a): <b>'.$usuario.'</b></p><hr>
+                <p>Se le envía este email por parte del <b>Hospital Antonio Caldas Domínguez - Pomabamba.</b>
+                    <br>Para informarle que se realizó satisfactoriamente el registro de su cita:
+                </p>
+                
+                <div id="table" align="center">
+                    <table width="100%" border="1"  bordercolor="#BDBCBC" cellspacing="0" cellpadding="5" id="tableDoc">
+                        <tr>
+                          <th colspan="2" style="padding: 20px;text-align:center;color:rgb(2, 0, 116);font-size: 1.5rem;height: 50px;">
+                            <b style="font-weight: 800;">HOSPITAL ACD - POMABAMBA</b><br>
+                            <b style="font-size: 20px;color: black;">021601A101 (RENAES:0000001765-HACDP)</b><br>
+                            <b style="font-weight: 800;">SISTEMA DE CITAS Y ATENCIÓN</b><br> 
+                            Ticket Cita Nro: <span><?php echo $data['ID'];?></span>                         
+                          </th>
+                        </tr>
+                        <tr style="text-align:left;font-size:20px">
+                          <th style="width: 40%;padding: 15px;">
+                            <b>Fecha de Cita: </b><span><?php echo $data['ID'];?></span><br>
+                            <b>Hora de Cita: </b><span><?php echo $data['ID'];?></span><br>
+                            <b>Médico: </b><span></span><?php echo $data['ID'];?><br>
+                            <b>Consultorio: </b><span><?php echo $data['ID'];?></span><br>
+                            <b>Orden / Total: </b><span><?php echo $data['ID'];?></span><br>                            
+                          </th>
+                        </tr>
+                        <tr style="text-align:left;font-size:20px">
+                            <th style="width: 40%;padding: 15px;">
+                                <b>Paciente: </b><span><?php echo $data['ID'];?></span><br>
+                                <b>Historia Clínica: </b><?php echo $data['ID'];?><span></span><br>
+                                <b>Servicio: </b><span><?php echo $data['ID'];?></span><br>                        
+                            </th> 
+                        </tr>
+                        <tr style="text-align:left;font-size:20px">
+                          <th style="width: 40%;padding: 15px;">
+                            <b>Recepcionista: </b><span><?php echo $data['ID'];?></span><br>
+                            <b>Fecha Registro: </b><span><?php echo $data['ID'];?></span><br>
+                            <b>Hora Registro: </b><span><?php echo $data['ID'];?></span><br>       
+                        </th>
+                        </tr>
+                        <tr style="text-align:center;font-size:18px;font-weight: 500;padding: 15px;">
+                          <th>El paciente debe estar 20 min antes de la atención</th>
+                        </tr>
+                        <tr style="text-align:center;font-size:18px;padding: 15px;">
+                            <th>TU SALUD EN TUS MANOS, LAVATE LAS MANOS</th>
+                          </tr>
+                      </table>
+                </div>
+                
+                    <br>Saludos cordiales
+                    <br><b>HOSPITAL ANTONIO CALDAS DOMÍNGUEZ - POMABAMBA</b>
+                </p>
+        
+                <p style="color: #094A8A;">_______________________________<br>
+                <b>OFICINA DE SISTEMAS Y TELECOMUNICACIONES - HACDP</b> <br>
+                <b>Contáctos:</b> 043-4510028<br>
+                <b>Dirección:</b> Carretera Norte KM 1 S/N - Huajtchacra<br>
+                </p>
+        </body>
+        </html>
